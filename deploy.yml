@@ -1,0 +1,56 @@
+name: Deploy Website to AWS
+
+# Trigger this workflow every time code is pushed to the 'main' branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Phase 1: Build the Docker image and push it to Docker Hub
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/my-website:latest
+
+  # Phase 2: Log into AWS EC2, pull the image, and run it
+  deploy-to-ec2:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into EC2 and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Log into Docker on the EC2 server
+            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+            
+            # Pull the latest website image from Docker Hub
+            docker pull ${{ secrets.DOCKER_USERNAME }}/my-website:latest
+            
+            # Stop and remove the old container if it exists so port 80 is free
+            docker stop website-container || true
+            docker rm website-container || true
+            
+            # Run the new container, linking EC2's port 80 to the container's Nginx port 80
+            docker run -d --name website-container -p 80:80 ${{ secrets.DOCKER_USERNAME }}/my-website:latest
+            
+            # Clean up old images to prevent the server from running out of storage
+            docker image prune -f
