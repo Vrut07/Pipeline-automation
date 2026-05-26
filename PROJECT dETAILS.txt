@@ -1,0 +1,73 @@
+EVENT HIVE:-
+
+REGISTER------
+             |
+             |
+           LOGIN--------------
+                             |
+                             |
+                          HOME PAGE
+                            
+                          -> THREE OPTION AT BOTTOM --> PROFILE ---> PROFILE
+                                                                ---> NAME
+                                                                ---> MOBILE NUMBER
+                                                                ---> GENDER
+                                                                ---> SETTINGS
+                                                                ---> LOG OUT
+
+
+                                                    --> HOME    ---> PLACE OR VENUE BOOKING  ----> TOP                -> SEARCH
+                                                                                             ----> NICHE RIGHT CORNER -> FILERS
+                                                                                             ----> NICHE              -> RESULTS
+ 
+                                                               ---> DECORATION BOOKING       ----> TOP                -> SEARCH
+                                                                                             ----> NICHE RIGHT CORNER -> FILERS
+                                                                                             ----> NICHE              -> RESULTS 
+
+                                                               ---> FLOWER OR BOQUE          ----> TOP                -> SEARCH
+                                                                                             ----> NICHE RIGHT CORNER -> FILERS
+                                                                                             ----> NICHE              -> RESULTS 
+
+                                                         
+
+                                                    --> HISTORY ---> CART
+                                                                ---> HISTORY
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROJECT IDEAS:
+DOG STORE.
+DESTINATION WEDDING
+MAP ALARAM 
+
+EASY:-
+DOG STORE.
+DESTINATION WEDDING PLANNER
+
+
+
+Vrut_1410
+py lint
+
+
